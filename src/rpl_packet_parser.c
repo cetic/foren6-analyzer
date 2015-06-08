@@ -45,6 +45,7 @@ rpl_tool_init()
 {
     desc_poll_init();
     rpldata_init();
+    analyser_config.old_tshark = false;
     analyser_config.root_rank = 256;
     analyser_config.context0.s6_addr16[0] = 0xaaaa;
     analyser_config.context0.s6_addr16[1] = 0;

@@ -41,6 +41,7 @@ typedef struct analyzer_callbacks {
 } analyzer_callbacks_t;
 
 typedef struct analyser_config {
+    bool old_tshark;
     int root_rank;
     struct in6_addr context0;
     bool address_autconf_only;

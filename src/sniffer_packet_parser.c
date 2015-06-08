@@ -42,9 +42,6 @@
 #include "data_info/hash_container.h"
 #include "sha1.h"
 
-//Define that to use the new command line format of newer tshark versions
-//#define USE_NEW_TSHARK
-
 static bool sniffer_parser_reset_requested = false;
 static enum {
     XPS_Run,
@@ -298,19 +295,17 @@ tshark_parser_reset()
               (const char *)&rpl_tool_get_analyser_config()->context0,
               context0 + strlen(context0), INET6_ADDRSTRLEN);
 
-#ifdef USE_NEW_TSHARK
+    char *parse_option;
+    if(rpl_tool_get_analyser_config()->old_tshark) {
+        parse_option = "-R";
+    } else {
+        parse_option = "-Y";
+    }
     if(spawn_piped_process("tshark", (char *const[]) {
-                           "tshark", "-i", "-", "-V", "-T", "pdml", "-2",
-                           "-R", "ipv6", "-l", "-o", context0, NULL},
-                           &tshark_pid, &pipe_tshark_stdin,
-                           &pipe_tshark_stdout) == false) {
-#else
-    if(spawn_piped_process("tshark", (char *const[]) {
-                           "tshark", "-i", "-", "-V", "-T", "pdml", "-R",
+                           "tshark", "-i", "-", "-V", "-T", "pdml", parse_option,
                            "ipv6", "-l", "-o", context0, NULL}, &tshark_pid,
                            &pipe_tshark_stdin,
                            &pipe_tshark_stdout) == false) {
-#endif
         perror("Can't spawn tshark process");
         return;
     }
