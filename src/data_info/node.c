@@ -476,6 +476,12 @@ node_update_from_dao(di_node_t * node, const rpl_dao_t * dao,
 }
 
 void
+node_update_from_dao_ack(di_node_t * node, const rpl_dao_ack_t * dao_ack)
+{
+    node->rpl_statistics.dao_ack++;
+}
+
+void
 node_update_from_dodag_config(di_node_t * node,
                               const rpl_dodag_config_t * config,
                               const di_dodag_t * dodag)

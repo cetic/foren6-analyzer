@@ -249,6 +249,22 @@ rpl_collector_parse_dao(packet_info_t pkt_info,
 }
 
 void
+rpl_collector_parse_dao_ack(packet_info_t pkt_info,
+                            rpl_dao_ack_t * dao_ack)
+{
+    di_node_t *node = NULL;
+    di_node_ref_t node_ref;
+    bool node_created = false;
+
+    node_ref_init(&node_ref, pkt_info.src_wpan_address);
+    node =
+      rpldata_get_node(&node_ref, HVM_CreateIfNonExistant, &node_created);
+    node_add_packet_count(node, 1);
+    node_set_ip(node, pkt_info.src_ip_address);
+    node_update_from_dao_ack(node, dao_ack);
+}
+
+void
 rpl_collector_parse_dis(packet_info_t pkt_info,
                         rpl_dis_opt_info_req_t * request)
 {

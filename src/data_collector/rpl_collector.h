@@ -43,6 +43,8 @@ void rpl_collector_parse_dio(packet_info_t pkt_info, rpl_dio_t * dio,
 void rpl_collector_parse_dao(packet_info_t pkt_info, rpl_dao_t * dao,
                              rpl_dao_opt_target_t * target,
                              rpl_dao_opt_transit_t * transit);
+void rpl_collector_parse_dao_ack(packet_info_t pkt_info,
+                                 rpl_dao_ack_t * dao_ack);
 void rpl_collector_parse_dis(packet_info_t pkt_info,
                              rpl_dis_opt_info_req_t * request);
 void rpl_collector_parse_data(packet_info_t pkt_info,

@@ -560,6 +560,11 @@ rpl_parser_end_packet()
                                     transit : NULL);
             break;
 
+        case PT_DAO_ACK:
+            rpl_collector_parse_dao_ack(current_packet.pkt_info,
+                                        &current_packet.dao_ack.dao_ack);
+            break;
+
         case PT_RPL_Unknown:
             fprintf(stderr, "Warning: invalid RPL packet\n");
             break;

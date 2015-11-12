@@ -259,6 +259,7 @@ typedef struct rpl_statistics {
     int dis;
     int dio;
     int dao;
+    int dao_ack;
 } rpl_statistics_t;
 
 typedef struct rpl_statistics_delta {
@@ -270,6 +271,7 @@ typedef struct rpl_statistics_delta {
     int dis;
     int dio;
     int dao;
+    int dao_ack;
 } rpl_statistics_delta_t;
 
 typedef struct rpl_errors {
