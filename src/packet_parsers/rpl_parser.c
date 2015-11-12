@@ -97,6 +97,10 @@ typedef struct rpl_packet_dao {
     rpl_dao_opt_transit_t transit;
 } rpl_packet_dao_t;
 
+typedef struct rpl_packet_dao_ack {
+    rpl_dao_ack_t dao_ack;
+} rpl_packet_dao_ack_t;
+
 typedef struct rpl_packet_data {
     bool has_hop_info;
     rpl_hop_by_hop_opt_t hop_info;
@@ -110,6 +114,7 @@ typedef struct rpl_packet_content {
         rpl_packet_dis_t dis;
         rpl_packet_dio_t dio;
         rpl_packet_dao_t dao;
+        rpl_packet_dao_ack_t dao_ack;
         rpl_packet_data_t data;
     };
 } rpl_packet_content_t;
@@ -292,6 +297,10 @@ rpl_parser_parse_field(const char *nameStr, const char *showStr,
             current_packet.pkt_info.type = PT_DAO;
             break;
 
+        case ICMPV6_RPL_CODE_DAO_ACK:
+            current_packet.pkt_info.type = PT_DAO_ACK;
+            break;
+
         default:
             fprintf(stderr, "Unsupported RPL packet code: %lld\n",
                     valueInt);
@@ -463,6 +472,18 @@ rpl_parser_parse_field(const char *nameStr, const char *showStr,
             if(option_check)
                 current_packet.dao.has_transit = true;
             break;
+
+        case PT_DAO_ACK:
+            if(!strcmp(nameStr, "icmpv6.rpl.daoack.instance"))
+                current_packet.dao_ack.dao_ack.rpl_instance_id = valueInt;
+            else if(!strcmp(nameStr, "icmpv6.rpl.daoack.flag.d"))
+                current_packet.dao_ack.dao_ack.dodagid_present = valueInt;
+            else if(!strcmp(nameStr, "icmpv6.rpl.daoack.sequence"))
+                current_packet.dao_ack.dao_ack.dao_sequence = valueInt;
+            else if(!strcmp(nameStr, "icmpv6.rpl.daoack.status"))
+                current_packet.dao_ack.dao_ack.status = valueInt;
+            else if(!strcmp(nameStr, "icmpv6.rpl.daoack.dodagid"))
+                inet_pton(AF_INET6, showStr, &current_packet.dao_ack.dao_ack.dodagid);
 
         default:
             //Transit option
