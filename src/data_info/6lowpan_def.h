@@ -55,6 +55,7 @@ typedef enum packet_type {
     PT_DIS,
     PT_DIO,
     PT_DAO,
+    PT_DAO_ACK,
     PT_UDP,
     PT_TCP,
     PT_IPv6_Unknown
