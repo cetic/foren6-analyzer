@@ -54,6 +54,7 @@ typedef struct ifinstance {
 
 typedef struct interface {
     const char *interface_name;
+    unsigned int parameters;
     void (*init) ();
       ifreader_t(*open) (const char *target, int channel, int baudrate);
       bool(*start) (ifreader_t handle);
@@ -61,6 +62,10 @@ typedef struct interface {
     void (*close) (ifreader_t handle);
 
 } interface_t;
+
+static const unsigned int INTERFACE_DEVICE = 0x1;
+static const unsigned int INTERFACE_CHANNEL = 0x2;
+static const unsigned int INTERFACE_BAUDRATE = 0x4;
 
 typedef void (*interface_enum_function_t) (const char *interface_name);
 typedef int (*interface_version_function_t) ();
@@ -71,6 +76,8 @@ interface_t *interfacemgr_get(const char *name);
 ifinstance_t *interfacemgr_create_handle(const char *target);
 void interfacemgr_destroy_handle(ifinstance_t * handle);
 
+int
+interfacemgr_baudrate_to_const(int requested);
 struct timeval interfacemgr_get_absolute_timestamp(const ifinstance_t *
                                                    iface,
                                                    struct timeval
