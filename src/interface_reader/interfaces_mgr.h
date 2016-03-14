@@ -63,9 +63,9 @@ typedef struct interface {
 
 } interface_t;
 
-static const unsigned int INTERFACE_DEVICE = 0x1;
-static const unsigned int INTERFACE_CHANNEL = 0x2;
-static const unsigned int INTERFACE_BAUDRATE = 0x4;
+#define INTERFACE_DEVICE 0x1
+#define INTERFACE_CHANNEL 0x2
+#define INTERFACE_BAUDRATE 0x4
 
 typedef void (*interface_enum_function_t) (const char *interface_name);
 typedef int (*interface_version_function_t) ();
