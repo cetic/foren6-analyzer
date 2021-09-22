@@ -66,6 +66,7 @@ typedef struct interface {
 #define INTERFACE_DEVICE 0x1
 #define INTERFACE_CHANNEL 0x2
 #define INTERFACE_BAUDRATE 0x4
+#define INTERFACE_TARGET 0x8
 
 typedef void (*interface_enum_function_t) (const char *interface_name);
 typedef int (*interface_version_function_t) ();
